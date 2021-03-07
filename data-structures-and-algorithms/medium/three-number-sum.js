@@ -74,7 +74,7 @@ function threeNumberSum(array, targetSum) {
 // Time Complexity: O(n^2)
 // Space Complexity: O(n)
 
-// Optimal Solution
+// Optimal Solution (matches with source)
 function threeNumberSum(array, targetSum) {
   array.sort((a, b) => {
     return a - b;
