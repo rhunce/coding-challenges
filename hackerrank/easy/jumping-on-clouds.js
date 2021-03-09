@@ -17,13 +17,13 @@ function jumpingOnClouds(c) {
   let end = c.length - 1;
   let totalJumps = 0;
   while (start < end) {
-      if (c[start + 2] === 0) {
-          start += 2;
-          totalJumps++;
-      } else {
-          start++;
-          totalJumps++;
-      }
+    if (c[start + 2] === 0) {
+      start += 2;
+      totalJumps++;
+    } else {
+      start++;
+      totalJumps++;
+    }
   }
   return totalJumps;
 }
