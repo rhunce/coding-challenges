@@ -78,3 +78,20 @@ function breaksDirection(direction, previousInt, currentInt) {
 }
 // Time Complexity: O(n)
 // Space Complexity: O(1)
+
+// Best solution
+function isMonotonic(array) {
+  let isIncreasing = true;
+	let isDecreasing = true;
+	for (let i = 1; i < array.length; i++) {
+		if (array[i] - array[i - 1] < 0) {
+			isIncreasing = false;
+		}
+		if (array[i] - array[i - 1] > 0) {
+			isDecreasing = false;
+		}
+	}
+	return isIncreasing || isDecreasing;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(1)
