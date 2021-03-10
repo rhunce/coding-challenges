@@ -22,3 +22,31 @@ function isMonotonic(array) {
 }
 // Time Complexity: O(n)
 // Space Complexity: O(n)
+
+// My optimized solution
+function isMonotonic(array) {
+	if (array.length <= 1) {
+		return true;
+	}
+	const comparatorFunction1 = (val, i) => {
+		if (i < array.length - 1) {
+			return array[i + 1] - val <= 0;
+		} else {
+      return true;
+    }
+  }
+	const comparatorFunction2 = (val, i) => {
+		if (i < array.length - 1) {
+			return array[i + 1] - val >= 0;
+		} else {
+      return true;
+    }
+	}
+  if (array.every(comparatorFunction1) || array.every(comparatorFunction2)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+// Time Complexity: O(n)
+// Space Complexity: O(1)
