@@ -4,7 +4,7 @@ Write a function that takes in an n X m 2-D array (can be square shaped when n =
 Spiral order starts at the top left corner of the 2-D array, goes to the right, and proceeds in a spiral pattern all the way until every element has been visited.
 */
 
-// My initial solution
+// MY INITIAL SOLUTION
 function spiralTraverse(array) {
   let result = [];
 
@@ -61,7 +61,7 @@ function spiralTraverse(array) {
 // Time Complexity: O(n^2)
 // Space Complexity: O(n)
 
-// Optimal source solution
+// OPTIMAL SOURCE SOLUTION (ITERATIVE)
 function spiralTraverse(array) {
   const result = [];
   let startRow = 0;
@@ -107,6 +107,41 @@ function spiralTraverse(array) {
   }
 
   return result;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+// OPTIMAL SOURCE SOLUTION (RECURSIVE)
+function spiralTraverse(array) {
+  let result = [];
+  spiralFill(array, 0, array.length - 1, 0, array[0].length - 1, result);
+  return result;
+}
+
+function spiralFill(array, startRow, endRow, startCol, endCol, result) {
+  if (startRow > endRow || startCol > endCol) {
+    return;
+  }
+
+  for (let col = startCol; col <= endCol; col++) {
+    result.push(array[startRow][col]);
+  }
+  for (let row = startRow + 1; row <= endRow; row++) {
+    result.push(array[row][endCol]);
+  }
+  for (let col = endCol - 1; col >= startCol; col--) {
+    if (startRow === endRow) {
+      break;
+    }
+    result.push(array[endRow][col]);
+  }
+  for (let row = endRow - 1; row > startRow; row--) {
+    if (startCol === endCol) {
+      break;
+    }
+    result.push(array[row][startCol]);
+  }
+  spiralFill(array, startRow + 1, endRow - 1, startCol + 1, endCol - 1, result);
 }
 // Time Complexity: O(n)
 // Space Complexity: O(n)
