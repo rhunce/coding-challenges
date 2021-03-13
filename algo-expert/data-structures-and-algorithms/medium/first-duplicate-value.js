@@ -69,5 +69,52 @@ function firstDuplicateValue(array) {
   }
   return result;
 }
+
+// MY CLEANED UP OPTIMIZED SOLUTION (optimized for time, not for space)
+function firstDuplicateValue(array) {
+  let cache = {};
+  for (let i = 0; i < array.length; i++) {
+    if (cache[array[i]] === undefined) {
+      cache[array[i]] = 'seenAlready';
+    } else if (cache[array[i]] === 'seenAlready') {
+      return array[i];
+    }
+  }
+  return -1;
+}
 // Time Complexity: O(n)
 // Space Complexity: O(n)
+
+// BRUTE FORCE SOURCE SOLUTION
+function firstDuplicateValue(array) {
+  let minimumSecondIndex = array.length;
+  for (let i = 0; i < array.length; i++) {
+    const value = array[i];
+    for (let j = i + 1; j < array.length; j++) {
+      const valueToCompare = array[j];
+      if (value === valueToCompare) {
+        minimumSecondIndex = Math.min(minimumSecondIndex, j)
+      }
+    }
+  }
+  if (minimumSecondIndex === array.length) {
+    return -1;
+  }
+  return array[minimumSecondIndex];
+}
+// Time Complexity: O(n^2)
+// Space Complexity: O(n)
+
+// OPTIMAL SOURCE SOLUTION
+function firstDuplicateValue(array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[Math.abs(array[i]) - 1] < 0) {
+      return Math.abs(array[i]);
+    } else {
+      array[Math.abs(array[i]) - 1] *= -1;
+    }
+  }
+  return -1;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(1)
