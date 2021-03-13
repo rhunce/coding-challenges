@@ -70,3 +70,21 @@ function arrayOfProducts(array) {
 }
 // Time Complexity: O(n)
 // Space Complexity: O(n)
+
+// CLEANER OPTIMAL SOLUTION BASED ON SOURCE VIDEO
+function arrayOfProducts(array) {
+  let runningLeftCumulativeProduct = 1;
+  let runningRightCumulativeProduct = 1;
+  let result = [];
+  for (let i = 0; i < array.length; i++) {
+    result[i] = runningLeftCumulativeProduct;
+    runningLeftCumulativeProduct *= array[i]
+  }
+  for (let i = array.length - 1; i >= 0; i--) {
+    result[i] *= runningRightCumulativeProduct;
+    runningRightCumulativeProduct *= array[i]
+  }
+  return result;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(n)
