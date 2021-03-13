@@ -8,7 +8,7 @@ If no integer appears more than once, your function should return -1.
 Note that you're allowed to mutate the input array.
 */
 
-// MY INITIAL SOLUTION
+// MY INITIAL SOLUTION (30 min)
 function firstDuplicateValue(array) {
   let cache = {};
   for (let i = 0; i < array.length; i++) {
@@ -41,4 +41,33 @@ function firstDuplicateValue(array) {
   return result;
 }
 // Time Complexity: O(n^2)
+// Space Complexity: O(n)
+
+// MY OPTIMIZED SOLUTION (optimized for time, not for space)
+function firstDuplicateValue(array) {
+  let cache = {};
+  for (let i = 0; i < array.length; i++) {
+    if (cache[array[i]] === undefined) {
+      cache[array[i]] = false;
+    } else if (cache[array[i]] === false) {
+      cache[array[i]] = [true, i];
+    }
+  }
+  let result = -1;
+  let potentialResults = [];
+  for (let key in cache) {
+    if (cache[key][0] === true) {
+      potentialResults.push([parseInt(key), cache[key][1]]);
+    }
+  }
+  let firstRepeatedIndex = Number.POSITIVE_INFINITY;
+  for (let i = 0; i < potentialResults.length; i++) {
+    if (potentialResults[i][1] < firstRepeatedIndex) {
+      firstRepeatedIndex = potentialResults[i][1];
+      result = potentialResults[i][0];
+    }
+  }
+  return result;
+}
+// Time Complexity: O(n)
 // Space Complexity: O(n)
