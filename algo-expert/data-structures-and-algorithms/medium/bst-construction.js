@@ -137,7 +137,7 @@ class BST {
   // AVERAGE: O(log(n)) time | O(1) space
   // WORST: O(n) time | O(1) space
 
-  constains(value) {
+  contains(value) {
     let currentNode = this;
     while (currentNode !== null) {
       if (value < currentNode.value) {
@@ -163,14 +163,19 @@ class BST {
         parentNode = currentNode;
         currentNode = currentNode.right;
       } else {
+        // scenarios where the input value matches the value of the current node
+        // if current node has two children
         if (currentNode.left !== null && currentNode.right !== null) {
           currentNode.value = currentNode.right.getMinValue();
           currentNode.right.remove(currentNode.value, currentNode);
+        // if this is the root node
         } else if (parentNode === null) {
+          // and it has only one child to the left
           if (currentNode.left !== null) {
             currentNode.value = currentNode.left.value;
             currentNode.right = currentNode.left.right;
             currentNode.left = currentNode.left.left;
+          // and it has only one child to the left
           } else if (currentNode.right !== null) {
             currentNode.value = currentNode.right.value;
             currentNode.left = currentNode.right.left;
@@ -178,9 +183,15 @@ class BST {
           } else {
             // This is a single-node tree; do nothing.
           }
-        } else if (parentNode.left === currentNode) {
+        }
+        // if current node not root node
+        // and current node smaller than parent node
+        else if (parentNode.left === currentNode) {
           parentNode.left = currentNode.left !== null ? currentNode.left : currentNode.right;
-        } else if (parentNode.right === currentNode) {
+        }
+        // if current node not root node
+        // and current node greater than parent node
+        else if (parentNode.right === currentNode) {
           parentNode.right = currentNode.left !== null ? currentNode.left : currentNode.right;
         }
         break;
