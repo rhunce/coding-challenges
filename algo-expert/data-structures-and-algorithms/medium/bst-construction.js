@@ -6,6 +6,7 @@ Write a BST class for a Binary Search Tree. The class should support:
   - Searching for values with the contains method.
 
 Note that you can't remove values from a single-node tree. In other words, calling the remove method on a single-node tree should simply not do anything.
+
 Each BST node has an integer value, a left child node, and a right child node. A node is said to be a valid BST node if and only if it satisfies the BST property:
 
   - its value is strictly greater than the values of every node to its left;
