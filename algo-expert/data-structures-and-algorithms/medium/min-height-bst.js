@@ -49,6 +49,34 @@ function minHeightBst(array) {
 // Time Complexity: O(n log(n))
 // Space Complexity: O(n)
 
+// SOURCE SOLUTION 2
+function minHeightBst(array) {
+  return constructMinHeightBst(array, null, 0, array.length - 1);
+}
+function constructMinHeightBst(array, bst, startIdx, endIdx) {
+  if (endIdx < startIdx) {
+    return;
+  }
+  const midIdx = Math.floor((startIdx + endIdx) / 2);
+  const newBstNode = new BST(array[midIdx]);
+  if (bst === null) {
+    bst = newBstNode;
+  } else {
+    if (array[midIdx] < bst.value) {
+      bst.left = newBstNode;
+      bst = bst.left;
+    } else {
+      bst.right = newBstNode;
+      bst = bst.right;
+    }
+  }
+  constructMinHeightBst(array, bst, startIdx, midIdx - 1);
+  constructMinHeightBst(array, bst, midIdx + 1, endIdx);
+  return bst;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
 // SOURCE SOLUTION 3
 function minHeightBst(array) {
   return constructMinHeightBst(array, 0, array.length - 1);
