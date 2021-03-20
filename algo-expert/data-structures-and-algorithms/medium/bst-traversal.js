@@ -8,7 +8,7 @@ Each BST node has an integer value, a left child node, and a right child node. A
   - its children are either valid BST nodes themselves or null.
 */
 
-// MY SOLUTION
+// MY SOLUTION (11 min)
 function inOrderTraverse(tree, array) {
   if (tree.left !== null) {
     inOrderTraverse(tree.left, array);
@@ -39,6 +39,36 @@ function postOrderTraverse(tree, array) {
     postOrderTraverse(tree.right, array);
   }
   array.push(tree.value);
+  return array;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+// SOURCE SOLUTION
+function inOrderTraverse(tree, array) {
+  if (tree !== null) {
+    inOrderTraverse(tree.left, array);
+    array.push(tree.value);
+    inOrderTraverse(tree.right, array);
+  }
+  return array;
+}
+
+function preOrderTraverse(tree, array) {
+  if (tree !== null) {
+    array.push(tree.value);
+    preOrderTraverse(tree.left, array);
+    preOrderTraverse(tree.right, array);
+  }
+  return array;
+}
+
+function postOrderTraverse(tree, array) {
+  if (tree !== null) {
+    postOrderTraverse(tree.left, array);
+    postOrderTraverse(tree.right, array);
+    array.push(tree.value);
+  }
   return array;
 }
 // Time Complexity: O(n)
