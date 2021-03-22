@@ -98,3 +98,5 @@ function reverseInOrderTraverse(node, k, treeInfo) {
     reverseInOrderTraverse(node.left, k, treeInfo);
   }
 }
+// Time Complexity: O(h + k)
+// Space Complexity: O(h)

@@ -121,5 +121,3 @@ class BST {
     }
   }
 }
-
-// SOURCE SOLUTION
