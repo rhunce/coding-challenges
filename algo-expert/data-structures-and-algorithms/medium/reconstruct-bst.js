@@ -18,6 +18,29 @@ class BST {
   }
 }
 
+// SOURCE SOLUTION
+function reconstructBst(preOrderTraversalValues) {
+  if (preOrderTraversalValues.length === 0) {
+    return null;
+  }
+  const currentValue = preOrderTraversalValues[0];
+  let rightSubtreeRootIdx = preOrderTraversalValues.length;
+  for (let idx = 1; idx < preOrderTraversalValues.length; idx++) {
+    const value = preOrderTraversalValues[idx];
+    if (value >= currentValue) {
+      rightSubtreeRootIdx = idx;
+      break;
+    }
+  }
+  const leftSubtree = reconstructBst(preOrderTraversalValues.slice(1, rightSubtreeRootIdx));
+  const rightSubtree = reconstructBst(preOrderTraversalValues.slice(rightSubtreeRootIdx));
+  return new BST(currentValue, leftSubtree, rightSubtree);
+}
+
+// Time Complexity: O(n^2)
+// Space Complexity: O(n)
+
+// OPTIMAL SOURCE SOLUTION
 class TreeInfo {
   constructor(rootIdx) {
     this.rootIdx = rootIdx;
