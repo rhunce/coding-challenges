@@ -11,7 +11,7 @@ class BinaryTree {
   }
 }
 
-// MY SOLUTION
+// MY SOLUTION (13 min)
 function invertBinaryTree(tree) {
   let node = tree;
   while (node !== null) {
@@ -25,4 +25,46 @@ function invertBinaryTree(tree) {
   return tree;
 }
 // Time Complexity: O(n)
-// Space Complexity: O(1)
+// Space Complexity: O(h)
+
+// SOURCE SOLUTION 1
+function invertBinaryTree(tree) {
+  const queue = [tree];
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (current === null) {
+      continue;
+    }
+    swapLeftAndRight(current);
+    queue.push(current.left);
+    queue.push(current.right);
+  }
+  return tree;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
+function swapLeftAndRight(tree) {
+  const left = tree.left;
+  tree.left = tree.right;
+  tree.right = left;
+}
+
+// SOURCE SOLUTION 2
+function invertBinaryTree(tree) {
+  if (tree === null) {
+    return;
+  }
+  swapLeftAndRight(tree);
+  invertBinaryTree(tree.left);
+  invertBinaryTree(tree.right);
+  return tree;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(h)
+
+function swapLeftAndRight(tree) {
+  const left = tree.left;
+  tree.left = tree.right;
+  tree.right = left;
+}
