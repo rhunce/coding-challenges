@@ -40,3 +40,29 @@ function nodeCollector(binaryTree, collection) {
 }
 // Time Complexity: O(n)
 // Space Complexity: O(n)
+
+// OPTIMAL SOURCE SOLUTION
+function findSuccessor(tree, node) {
+  if (node.right !== null) {
+    return getLeftmostChild(node.right);
+  }
+  return getRightmostParent(node);
+}
+// Time Complexity: O(h)
+// Space Complexity: O(1)
+
+function getLeftmostChild(node) {
+  let currentNode = node;
+  while (currentNode.left !== null) {
+    currentNode = currentNode.left;
+  }
+  return currentNode;
+}
+
+function getRightmostParent(node) {
+  let currentNode = node;
+  while (currentNode.parent !== null && currentNode.parent.right === currentNode) {
+    currentNode = currentNode.parent;
+  }
+  return currentNode.parent;
+}
