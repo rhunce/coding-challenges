@@ -24,6 +24,8 @@ function heightBalancedBinaryTree(tree) {
   const treeInfo = getTreeInfo(tree);
   return treeInfo.isBalanced;
 }
+// Time Complexity: O(n)
+// Space Complexity: O(h)
 
 function getTreeInfo(node) {
   if (node === null) {
