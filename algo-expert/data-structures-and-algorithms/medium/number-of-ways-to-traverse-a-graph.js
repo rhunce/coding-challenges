@@ -55,3 +55,60 @@ function numberOfWaysToTraverseGraph(width, height) {
   graphTraverser(graph, height, width, 0, 0, paths);
   return paths.numberOfPaths;
 }
+
+// SOURCE SOLUTION 1 (Recursion)
+function numberOfWaysToTraverseGraph(width, height) {
+  if (width === 1 || height === 1) return 1;
+  return numberOfWaysToTraverseGraph(width - 1, height) + numberOfWaysToTraverseGraph(width, height - 1);
+}
+// Time Complexity: O(2^(n + m))
+// Space Complexity: O(n + m)
+// n = width and m = height
+
+// SOURCE SOLUTION 2 (Dynamic Programming)
+function numberOfWaysToTraverseGraph(width, height) {
+  const numberOfWays = [];
+  for (let i = 0; i < height + 1; i++) {
+    numberOfWays.push([]);
+    for (let j = 0; j < width + 1; j++) {
+      numberOfWays[i].push(0);
+    }
+  }
+  for (let widthIdx = 1; widthIdx < width + 1; widthIdx++) {
+    for (let heightIdx = 1; heightIdx < height + 1; heightIdx++) {
+      if (widthIdx === 1 || heightIdx === 1) {
+        numberOfWays[heightIdx][widthIdx] = 1;
+      } else {
+        const waysLeft = numberOfWays[heightIdx][widthIdx - 1];
+        const waysUp = numberOfWays[heightIdx - 1][widthIdx];
+        numberOfWays[heightIdx][widthIdx] = waysLeft + waysUp;
+      }
+    }
+  }
+  return numberOfWays[height][width];
+}
+// Time Complexity: O(n * m)
+// Space Complexity: O(n * m)
+// n = width and m = height
+
+// SOURCE SOLUTION 3 (Math)
+function numberOfWaysToTraverseGraph(width, height) {
+  const xDistanceToCorner = width - 1;
+  const yDistanceToCorner = height - 1;
+  // The number of permutations of right and down movements
+  // is the number of ways to reach the bottom right corner.
+  const numerator = factorial(xDistanceToCorner + yDistanceToCorner);
+  const denominator = factorial(xDistanceToCorner) * factorial(yDistanceToCorner);
+  return Math.floor(numerator / denominator);
+}
+// Time Complexity: O(n + m)
+// Space Complexity: O(1)
+// n = width and m = height
+
+function factorial(num) {
+  let result = 1;
+  for (let n = 2; n < num + 1; n++) {
+    result *= n;
+  }
+  return result;
+}
