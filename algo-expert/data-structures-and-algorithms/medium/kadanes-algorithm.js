@@ -20,3 +20,17 @@ function kadanesAlgorithm(array) {
 }
 // Time Complexity: O(n^2)...maybe O(n^3) since slice nested in doubly nested loop?
 // Space Complexity: O(n)
+
+// SOURCE SOLUTION
+function kandanesAlgorithm(array) {
+  let maxEndingHere = array[0];
+  let maxSoFar = array[0];
+  for (let i = 1; i < array.length; i++) {
+    const num = array[i];
+    maxEndingHere = Math.max(num, maxEndingHere + num);
+    maxSoFar = Math.max(maxSoFar, maxEndingHere);
+  }
+  return maxSoFar;
+}
+// Time Complexity: O(n)
+// Space Complexity: O(1)
