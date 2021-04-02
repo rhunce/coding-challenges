@@ -31,4 +31,19 @@ class Node {
   }
   // Time Complexity: O(n)
   // Space Complexity: O(n)
+
+  // SOURCE SOLUTION
+  breadthFirstSearch(array) {
+    const queue = [this];
+    while (queue.length > 0) {
+      const current = queue.shift();
+      array.push(current.name);
+      for (const child of current.children) {
+        queue.push(child);
+      }
+    }
+    return array;
+  }
+  // Time Complexity: O(v + e)
+  // Space Complexity: O(v)
 }
