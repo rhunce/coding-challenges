@@ -29,8 +29,6 @@ class Node {
     }
     return array;
   }
-  // Time Complexity: O(n)
-  // Space Complexity: O(n)
 
   // SOURCE SOLUTION
   breadthFirstSearch(array) {
@@ -46,4 +44,6 @@ class Node {
   }
   // Time Complexity: O(v + e)
   // Space Complexity: O(v)
+  // v = vertices
+  // e = edges
 }
