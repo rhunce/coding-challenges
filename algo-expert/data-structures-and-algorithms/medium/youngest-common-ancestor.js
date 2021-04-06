@@ -43,3 +43,47 @@ function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
 // Time Complexity: O(n^2)
 // Space Complexity: O(h)
 // h = height of tree
+
+// MY MORE OPTIMAL SOLUTION
+function getYoungestCommonAncestor(topAncestor, descendantOne, descendantTwo) {
+  let descendantOneHeight = 0;
+  let descendantTwoHeight = 0;
+
+  let currentNodeDescendantOneLine = descendantOne;
+  let currentNodeDescendantTwoLine = descendantTwo;
+
+  while (currentNodeDescendantOneLine !== null) {
+    descendantOneHeight++;
+    currentNodeDescendantOneLine = currentNodeDescendantOneLine.ancestor;
+  }
+  while (currentNodeDescendantTwoLine !== null) {
+    descendantTwoHeight++;
+    currentNodeDescendantTwoLine = currentNodeDescendantTwoLine.ancestor;
+  }
+
+  currentNodeDescendantOneLine = descendantOne;
+  currentNodeDescendantTwoLine = descendantTwo;
+
+  while (descendantOneHeight > 0 && descendantTwoHeight > 0) {
+    if (descendantOneHeight > descendantTwoHeight) {
+      currentNodeDescendantOneLine = currentNodeDescendantOneLine.ancestor;
+      descendantOneHeight--;
+    } else if (descendantTwoHeight > descendantOneHeight) {
+      currentNodeDescendantTwoLine = currentNodeDescendantTwoLine.ancestor;
+      descendantTwoHeight--;
+    } else {
+      if (currentNodeDescendantOneLine === currentNodeDescendantTwoLine) {
+        return currentNodeDescendantOneLine;
+      } else {
+        currentNodeDescendantOneLine = currentNodeDescendantOneLine.ancestor;
+        currentNodeDescendantTwoLine = currentNodeDescendantTwoLine.ancestor;
+        descendantOneHeight--;
+        descendantTwoHeight--;
+      }
+    }
+  }
+  return null;
+}
+// Time Complexity: O(h)
+// Space Complexity: O(1)
+// h = height of tree
