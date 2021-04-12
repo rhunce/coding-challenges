@@ -6,14 +6,15 @@ The value of each LinkedList node is always in the range of 0 - 9.
 Note: Your function must create a new Linked List, and you're not allowed to modify either of the input Linked Lists.
 */
 
-// MY SOLUTION (44 min)
-// This is an input class. Do not edit.
 class LinkedList {
   constructor(value) {
     this.value = value;
     this.next = null;
   }
 }
+
+// MY SOLUTION (44 min)
+// This is an input class. Do not edit.
 
 function sumOfLinkedLists(linkedListOne, linkedListTwo) {
   const ll1StringedNums = [];
@@ -55,3 +56,32 @@ function createdLinkedList(stringedInteger) {
   }
   return headNode;
 }
+
+// SOURCE SOLUTION
+function sumOfLinkedLists(linkedListOne, linkedListTwo) {
+  // This variable will store a dummy node whose .next
+  // attribute will point to the head of our new LL.
+  const newLinkedListHeadPointer = new LinkedList(0);
+  let currentNode = newLinkedListHeadPointer;
+  let carry = 0;
+
+  let nodeOne = linkedListOne;
+  let nodeTwo = linkedListTwo;
+  while (nodeOne !== null || nodeTwo !== null || carry !== 0) {
+    const valueOne = nodeOne !== null ? nodeOne.value : 0;
+    const valueTwo = nodeTwo !== null ? nodeTwo.value : 0;
+    const sumOfValues = valueOne + valueTwo + carry;
+
+    const newValue = sumOfValues % 10;
+    const newNode = new LinkedList(newValue);
+    currentNode.next = newNode;
+    currentNode = newNode;
+
+    carry = Math.floor(sumOfValues / 10);
+    nodeOne = nodeOne !== null ? nodeOne.next : null;
+    nodeTwo = nodeTwo !== null ? nodeTwo.next : null;
+  }
+
+  return newLinkedListHeadPointer.next;
+}
+// Time complexity: O(max(n, m)) | Space complexity: O(max(n, m))
