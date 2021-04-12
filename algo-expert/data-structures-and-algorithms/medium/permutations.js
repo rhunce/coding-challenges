@@ -13,16 +13,16 @@ function getPermutations(array) {
 }
 // O(n^2) time ? | O(n) space
 
-function getAllPermutations(numbers, container, permutation = []) {
+function getAllPermutations(numbers, permutations, permutation = []) {
   if (permutation.length === numbers.length) {
-    container.push(permutation.slice());
+    permutations.push(permutation.slice());
     return;
   }
 
   for (let i = 0; i < numbers.length; i++) {
     if (permutation.indexOf(numbers[i]) === -1) {
       permutation.push(numbers[i]);
-      getAllPermutations(numbers, container, permutation);
+      getAllPermutations(numbers, permutations, permutation);
       permutation.pop();
     }
   }
