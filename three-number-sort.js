@@ -63,27 +63,37 @@ function threeNumberSort(array, order) {
 }
 // O(n) time | O(1) space
 
-// SOURCE SOLUTION
+// OPTIMAL SOURCE SOLUTION
 function threeNumberSort(array, order) {
-  const valueCounts = [0, 0, 0];
-  for (const element of array) {
-    const orderIdx = order.indexOf(element);
-    valueCounts[orderIdx]++;
-  }
+  const firstValue = order[0];
+  const secondValue = order[1];
 
-  for (let idx = 0; idx < 3; idx++) {
-    const value = order[idx];
-    const count = valueCounts[idx];
+  // Keep track of the indices where the values are stored
+  let firstIdx = 0;
+  let secondIdx = 0;
+  let thirdIdx = array.length - 1;
 
-    const numElementsBefore = valueCounts
-      .slice(0, idx)
-      .reduce((a, b) => a + b, 0);
-    for (let n = 0; n < count; n++) {
-      const currentIdx = numElementsBefore + n;
-      array[currentIdx] = value;
+  while (secondIdx <= thirdIdx) {
+    const value = array[secondIdx];
+
+    if (value === firstValue) {
+      swap(firstIdx, secondIdx, array);
+      firstIdx++;
+      secondIdx++;
+    } else if (value === secondValue) {
+      secondIdx++;
+    } else {
+      swap(secondIdx, thirdIdx, array);
+      thirdIdx--;
     }
   }
 
   return array;
+}
+
+function swap(i, j, array) {
+  const temp = array[j];
+  array[j] = array[i];
+  array[i] = temp;
 }
 // O(n) time | O(1) space
