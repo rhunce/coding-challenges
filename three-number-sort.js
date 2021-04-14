@@ -8,6 +8,7 @@ The function should perform this in place (i.e. it should mutate the input array
 Note that the desired order won't necessarily be ascending or descending and that the first array won't necessarily contain all three integers found in the second array -- it might contain only one or two.
 */
 
+// MY INITIAL SOLUTION
 function threeNumberSort(array, order) {
   for (let i = 0; i < order.length; i++) {
     let endOfIteration = array.length;
@@ -21,4 +22,21 @@ function threeNumberSort(array, order) {
   }
   return array;
 }
-// O() time | O() space
+// O(n * m^2) time | O(1) space
+
+// MY IMPROVED SOLUTION
+function threeNumberSort(array, order) {
+  let currentIndex = 0;
+  for (let i = 0; i < order.length; i++) {
+    for (let j = currentIndex; j < array.length; j++) {
+      if (array[j] === order[i]) {
+        let temp = array[currentIndex];
+        array[currentIndex] = array[j];
+        array[j] = temp;
+        currentIndex++;
+      }
+    }
+  }
+  return array;
+}
+// O(n * m) time | O(1) space
