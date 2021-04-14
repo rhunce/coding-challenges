@@ -40,3 +40,25 @@ function threeNumberSort(array, order) {
   return array;
 }
 // O(n * m) time | O(1) space
+
+// MY MORE IMPROVED SOLUTION
+function threeNumberSort(array, order) {
+  let currentBegIndex = 0;
+  let currentEndIndex = array.length - 1;
+  for (let i = 0; i < currentEndIndex + 1; i++) {
+    if (array[i] === order[0]) {
+      let temp = array[i];
+      array[i] = array[currentBegIndex];
+      array[currentBegIndex] = temp;
+      currentBegIndex++;
+    } else if (array[i] === order[2]) {
+      let temp = array[i];
+      array[i] = array[currentEndIndex];
+      array[currentEndIndex] = temp;
+      i--;
+      currentEndIndex--;
+    }
+  }
+  return array;
+}
+// O(n) time | O(1) space
