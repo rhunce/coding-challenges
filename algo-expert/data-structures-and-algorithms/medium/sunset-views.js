@@ -36,3 +36,44 @@ function sunsetViews(buildings, direction) {
   return buildingsWithSunsetView.sort((a, b) => a - b);
 }
 // O(n log n) time | O(n) space
+
+// MY IMPROVED SOLUTION
+function sunsetViews(buildings, direction) {
+  if (buildings.length === 0) {
+    return [];
+  }
+  const buildingsWithSunsetView = [];
+  determineBuildingsWithSunset(buildings, direction, buildingsWithSunsetView);
+  if (direction === 'WEST') {
+    return buildingsWithSunsetView;
+  } else {
+    return buildingsWithSunsetView.reverse();
+  }
+}
+
+function determineBuildingsWithSunset(
+  buildings,
+  direction,
+  buildingsWithSunsetView
+) {
+  if (direction === 'EAST') {
+    let tallestHeight = buildings[buildings.length - 1];
+    buildingsWithSunsetView.push(buildings.length - 1);
+    for (let i = buildings.length - 2; i >= 0; i--) {
+      if (buildings[i] > tallestHeight) {
+        buildingsWithSunsetView.push(i);
+        tallestHeight = buildings[i];
+      }
+    }
+  } else {
+    let tallestHeight = buildings[0];
+    buildingsWithSunsetView.push(0);
+    for (let i = 1; i < buildings.length; i++) {
+      if (buildings[i] > tallestHeight) {
+        buildingsWithSunsetView.push(i);
+        tallestHeight = buildings[i];
+      }
+    }
+  }
+}
+// O(n) time | O(n) space
