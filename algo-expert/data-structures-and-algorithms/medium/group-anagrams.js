@@ -52,3 +52,19 @@ function areAnagrams(word1, word2) {
   return true;
 }
 // O(_) time ??? | O(n*m) space
+
+// OPTIMAL SOURCE SOLUTION
+function groupAnagrams(words) {
+  const anagrams = {};
+  for (const word of words) {
+    const sortedWord = word.split('').sort().join('');
+    if (sortedWord in anagrams) {
+      anagrams[sortedWord].push(word);
+    } else {
+      anagrams[sortedWord] = [word];
+    }
+  }
+  return Object.values(anagrams);
+}
+// O(w * n * log(n)) time | O(n*m) space
+// w = number of words, n = length of longest word
