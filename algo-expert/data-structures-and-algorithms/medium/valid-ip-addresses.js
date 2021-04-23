@@ -8,6 +8,7 @@ An IP address isn't valid if any of the individual integers contains leading 0s.
 Your function should return the IP addresses in string format and in no particular order. If no valid IP addresses can be created from the string, your function should return an empty list.
 */
 
+// BRUTE FORCE SOLUTION (30 min)
 function validIPAddresses(string) {
   const validIpAddresses = [];
   const potentialIpAddresses = [];
@@ -48,4 +49,43 @@ function isValidIpAddress(potentialValidIpAddress) {
     }
   }
   return true;
+}
+
+// SOURCE SOLUTION
+function validIPAddresses(string) {
+  const ipAddressesFound = [];
+
+  for (let i = 0; i < Math.min(string.length, 4); i++) {
+    const currentIPAddressParts = ['', '', '', ''];
+
+    currentIPAddressParts[0] = string.slice(0, i);
+    if (!isValidPart(currentIPAddressParts[0])) continue;
+
+    for (let j = i + 1; j < i + Math.min(string.length - i, 4); j++) {
+      currentIPAddressParts[1] = string.slice(i, j);
+      if (!isValidPart(currentIPAddressParts[1])) continue;
+
+      for (let k = j + 1; k < j + Math.min(string.length - j, 4); k++) {
+        currentIPAddressParts[2] = string.slice(j, k);
+        currentIPAddressParts[3] = string.slice(k);
+
+        if (
+          isValidPart(currentIPAddressParts[2]) &&
+          isValidPart(currentIPAddressParts[3])
+        ) {
+          ipAddressesFound.push(currentIPAddressParts.join('.'));
+        }
+      }
+    }
+  }
+
+  return ipAddressesFound;
+}
+// O(1) time | O(1) space
+
+function isValidPart(string) {
+  const stringAsInt = parseInt(string);
+  if (stringAsInt > 255) return false;
+
+  return string.length === stringAsInt.toString().length;
 }
