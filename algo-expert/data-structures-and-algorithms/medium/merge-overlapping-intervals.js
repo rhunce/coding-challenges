@@ -33,4 +33,24 @@ function mergeOverlappingIntervals(array) {
 }
 // O(n^2) time | O(n) space
 
+// MY IMPROVED, OPTIMAL SOLUTION
+function mergeOverlappingIntervals(array) {
+  array.sort((a, b) => {
+    return a[0] - b[0];
+  });
+  for (let i = 0; i < array.length - 1; i++) {
+    const currentInterval = array[i];
+    const nextInterval = array[i + 1];
+    if (currentInterval[1] >= nextInterval[0]) {
+      const firstVal = currentInterval[0];
+      const secondVal = Math.max(currentInterval[1], nextInterval[1]);
+      array.splice(i, 1, [firstVal, secondVal]);
+      array.splice(i + 1, 1);
+      i--;
+    }
+  }
+  return array;
+}
+// O(n log n) time | O(n) space
+
 // SOURCE SOLUTION
