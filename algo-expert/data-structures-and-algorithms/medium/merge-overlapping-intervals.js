@@ -33,7 +33,7 @@ function mergeOverlappingIntervals(array) {
 }
 // O(n^2) time | O(n) space
 
-// MY IMPROVED, OPTIMAL SOLUTION
+// MY IMPROVED, OPTIMAL SOLUTION (+7 min)
 function mergeOverlappingIntervals(array) {
   array.sort((a, b) => {
     return a[0] - b[0];
@@ -54,3 +54,25 @@ function mergeOverlappingIntervals(array) {
 // O(n log n) time | O(n) space
 
 // SOURCE SOLUTION
+function mergeOverlappingIntervals(intervals) {
+  const sortedIntervals = intervals.sort((a, b) => a[0] - b[0]);
+
+  const mergedIntervals = [];
+  let currentInterval = sortedIntervals[0];
+  mergedIntervals.push(currentInterval);
+
+  for (const nextInterval of sortedIntervals) {
+    const [_, currentIntervalEnd] = currentInterval;
+    const [nextIntervalStart, nextIntervalEnd] = nextInterval;
+
+    if (currentIntervalEnd >= nextIntervalStart) {
+      currentInterval[1] = Math.max(currentIntervalEnd, nextIntervalEnd);
+    } else {
+      currentInterval = nextInterval;
+      mergedIntervals.push(currentInterval);
+    }
+  }
+
+  return mergedIntervals;
+}
+// O(n log n) time | O(n) space
