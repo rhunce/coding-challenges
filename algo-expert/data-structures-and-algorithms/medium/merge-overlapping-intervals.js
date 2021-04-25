@@ -31,7 +31,7 @@ function mergeOverlappingIntervals(array) {
   }
   return array;
 }
-// O(n^2) time | O(n) space
+// O(n^2) time | O(1) space
 
 // MY IMPROVED, OPTIMAL SOLUTION (+7 min)
 function mergeOverlappingIntervals(array) {
@@ -51,7 +51,7 @@ function mergeOverlappingIntervals(array) {
   }
   return array;
 }
-// O(n log n) time | O(n) space
+// O(n log n) time | O(1) space
 
 // SOURCE SOLUTION
 function mergeOverlappingIntervals(intervals) {
