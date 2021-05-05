@@ -8,7 +8,7 @@ A range of numbers is defined as a set of numbers that come right after each oth
 You can assume that there will only be one largest range.
 */
 
-// BRUTE FORCE APPROACH
+// BRUTE FORCE APPROACH (30 min)
 function largestRange(array) {
   array.sort((a, b) => a - b);
   let largestRangeSize = 0;
@@ -36,4 +36,73 @@ function getRangeInfo(array, startingIndex) {
     lengthOfRange: currentIndex - startingIndex + 2,
     rangeTuple: [array[startingIndex - 1], array[currentIndex]],
   };
+}
+
+// OPTIMAL SOLUTION (24 min)
+function largestRange(array) {
+  const integers = {};
+  let largestRangeSize = 0;
+  let largestRange;
+  for (let i = 0; i < array.length; i++) {
+    if (integers[array[i]] === undefined) {
+      integers[array[i]] = array[i];
+    }
+  }
+  const lowestInteger = Math.min(...array);
+  const highestInteger = Math.max(...array);
+  for (let i = lowestInteger; i < highestInteger; i++) {
+    if (integers[i] !== undefined && integers[i + 1] !== undefined) {
+      const rangeInfo = getRangeInfo(integers, i + 1);
+      if (rangeInfo.lengthOfRange > largestRangeSize) {
+        largestRangeSize = rangeInfo.lengthOfRange;
+        largestRange = rangeInfo.rangeTuple;
+      }
+      i = i + rangeInfo.lengthOfRange - 1;
+    }
+  }
+  return largestRange ? largestRange : [array[0], array[0]];
+}
+// O(n) time | O(n) space
+
+function getRangeInfo(integers, startingIndex) {
+  let currentIndex = startingIndex + 1;
+  while (integers[currentIndex] !== undefined) {
+    currentIndex++;
+  }
+  return {
+    lengthOfRange: currentIndex - startingIndex + 1,
+    rangeTuple: [integers[startingIndex - 1], integers[currentIndex - 1]],
+  };
+}
+
+// SOURCE SOLUTION
+function largestRange(array) {
+  let bestRange = [];
+  let longestLength = 0;
+  const nums = {};
+  for (const num of array) {
+    nums[num] = true;
+  }
+  for (const num of array) {
+    if (!nums[num]) continue;
+    nums[num] = false;
+    let currentLength = 1;
+    let left = num - 1;
+    let right = num + 1;
+    while (left in nums) {
+      nums[left] = false;
+      currentLength++;
+      left--;
+    }
+    while (right in nums) {
+      nums[right] = false;
+      currentLength++;
+      right++;
+    }
+    if (currentLength > longestLength) {
+      longestLength = currentLength;
+      bestRange = [left + 1, right - 1];
+    }
+  }
+  return bestRange;
 }
