@@ -70,3 +70,49 @@ function zigzagTraverse(array, startRow = 0, startCol = 0, result = []) {
   return result;
 }
 // O(n) time | O(n) space
+
+// SOURCE SOLUTION
+function zigzagTraverse(array) {
+  const height = array.length - 1;
+  const width = array[0].length - 1;
+  const result = [];
+  let row = 0;
+  let col = 0;
+  let goingDown = true;
+
+  while (!isOutOfBounds(row, col, height, width)) {
+    result.push(array[row][col]);
+    if (goingDown) {
+      if (col === 0 || row === height) {
+        if (row === height) {
+          col++;
+        } else {
+          row++;
+        }
+        goingDown = false;
+      } else {
+        row++;
+        col--;
+      }
+    } else {
+      if (row === 0 || col === width) {
+        if (col === width) {
+          row++;
+        } else {
+          col++;
+        }
+        goingDown = true;
+      } else {
+        row--;
+        col++;
+      }
+    }
+  }
+
+  return result;
+}
+// O(n) time | O(n) space
+
+function isOutOfBounds(row, col, height, width) {
+  return row < 0 || row > height || col < 0 || col > width;
+}
